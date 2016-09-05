@@ -1,0 +1,16 @@
+import BaseHTTPServer
+
+class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header("Content-type", "text/html")
+        self.end_headers()
+        #self.wfile.write("<html><body>Hello!</body></html>")
+        f = open("test.html")
+        self.wfile.write(f.read())
+        f.close()
+        return 
+    
+print "Listen 8080"
+server = BaseHTTPServer.HTTPServer(("",8080),MyHandler)
+server.serve_forever()
